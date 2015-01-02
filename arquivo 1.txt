@@ -1,0 +1,105 @@
+@echo off
+::RENOMEAR EXTENSAO DE ARQUIVOS
+::HACASFKER-030214-060214
+
+title Renomear Arquivos
+mode 35,8
+color 1f
+echo ---------------------------------
+echo Ola, %USERNAME%!
+echo ________________________________
+echo.
+set /p ent= Altere a extensao ^> 
+echo.
+set /p sai=               para^> 
+goto pular
+
+:in
+cls
+echo ________________________________
+echo.
+set /p ent= Altere a extensao ^> 
+echo.
+set /p sai=               para^> 
+
+:pular
+
+if exist *.%ent% goto 1
+goto 2
+
+:1
+ren *.%ent% *.%sai%
+goto 3
+
+:2
+cls
+mode 35,8
+color 1f
+echo A estensao ^>%ent%^< nao exite neste
+echo diretorio.
+echo.
+echo Digite:
+echo "1" para voltar;
+echo "2" para sair.
+set /p con= ^> 
+if %con% == 1 goto in
+if %con% == 2 goto ex
+msg * /time 3 Opcao invalida! :(
+goto ex
+
+:3
+cls
+echo.
+echo Digite:
+echo "1" para voltar;
+echo "2" para sair.
+set /p con= ^> 
+if %con% == 1 goto in
+if %con% == 2 goto ex
+msg * /time 3 Opcao invalida! :(
+goto ex
+
+:ex
+exit
+
+
+//////////////////////////////
+
+
+@echo off
+::SENHA ACESSO
+::030214HACASFKER
+
+title Mover Fotos e Renomear
+mode 45,3
+color 1f
+echo Ola %USERNAME%!
+
+echo.
+set /p pwd= Digite a senha: ^>
+if %pwd% == asf123 goto in
+msg * /time 2 Senha invalida.
+goto tst1
+
+:tst1
+cls
+echo.
+set /p pwd= Digite a senha: ^>
+if %pwd% == asf123 goto in
+msg * /time 2 Senha invalida.
+goto tst2
+
+:tst2
+cls
+echo.
+set /p pwd= Digite a senha: ^>
+if %pwd% == asf123 goto in
+msg * /time 2 Senha invalida.
+goto tst3
+
+:tst3
+exit
+
+:in
+start calc
+exit

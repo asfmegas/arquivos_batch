@@ -1,0 +1,81 @@
+@echo off
+::CADASTRO DE ALUNOS CEM
+::HACASFKER
+::inicio 03/02/2014
+::Ultima atualizacao: 07/02/2014
+
+if %USERNAME% == alex goto ok
+msg * /time 3 %USERNAME% seu acesso nao foi autorizado.
+goto ex2
+:ok
+
+title Cadastro de Alunos CEM - 2014
+mode 50,6
+color 20
+
+echo ----- Ola, %USERNAME%!
+echo.
+set /p lote= Lote: ^> 
+echo.
+set /p cam= Caminho: ^> 
+
+:in
+cls
+title Cadastro de Alunos CEM - 2014
+mode 70,20
+color 1f
+echo.
+echo Lote: %lote%
+echo Salvo em: %cam%
+echo __________________________________________________________________
+set /p op1= [ 1 - Continuar ] - [ 2 - Visualizar ] - [ 3 - Sair ] ^> 
+if %op1% == 1 goto siga
+if %op1% == 2 goto mt
+if %op1% == 3 goto ex
+if %op1% == 4 goto mt2
+msg * /time 3 Comando invalido.
+goto in
+:siga
+echo.
+set /p ctr= Controle: ^> 
+if %ctr% == menu goto in
+if %ctr% == exit goto ex2
+echo.
+set /p nome= Nome: ^> 
+echo.
+set /p nasc= Nascimento: ^> 
+if %nasc% == menu goto in
+if %nasc% == exit goto ex2
+echo.
+set /p cdesc= Cod. Esc.: ^> 
+if %cdesc% == menu goto in
+if %cdesc% == exit goto ex2
+echo.
+set /p esc= Escola: ^> 
+echo.
+set /p cc= Cod. Curso: ^> 
+echo.
+set /p cur= Curso: ^> 
+echo.
+@echo %lote%,%ctr%,"%nome%",%nasc%,%cdesc%,"%esc%",%cc%,"%cur%" >> %cam%\%lote%.txt
+@echo Nome: "%nome%" >> %cam%\todos.txt
+goto in
+
+:mt2
+mode 50,60
+color 1f
+type %cam%\todos.txt
+pause> nul
+goto in
+
+:mt
+start notepad %cam%\todos.txt
+goto in
+
+:ex
+del %cam%\todos.txt
+exit
+
+:ex2
+
+exit

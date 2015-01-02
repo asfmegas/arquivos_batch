@@ -1,0 +1,581 @@
+@echo off
+::CRIAR ARQUIVO TXT
+::030214HACASFKER
+
+if %USERNAME% == alex goto ok
+msg * /time 3 %USERNAME% seu acesso nao foi autorizado.
+goto ex
+:ok
+title Programa - Helper
+mode 35,15
+color 20
+
+echo __________________________
+echo Ola, %USERNAME%!
+echo __________________________
+echo.
+echo Opcoes:
+echo.
+echo  " 1 " para renomear arquivos;
+echo  " 2 " para criar *.txt;
+echo  " 3 " para sair.
+echo __________________________
+echo.
+set /p op1= ^> 
+if %op1% == 1 goto rnr
+if %op1% == 2 goto mdr
+if %op1% == 3 goto ex
+msg * /time 2 Comando invalido!
+
+:: direcionar drc
+goto drc
+
+::inicio
+:in
+cls
+title Programa - Helper
+mode 35,10
+color 20
+echo __________________________
+echo.
+echo Opcoes:
+echo.
+echo  " 1 " para renomear arquivos;
+echo  " 2 " para criar *.txt;
+echo  " 3 " para sair.
+echo __________________________
+echo.
+set /p op1= ^> 
+if %op1% == 1 goto rnr
+if %op1% == 2 goto mdr
+if %op1% == 3 goto ex
+msg * /time 2 Comando invalido!
+goto in
+
+::renomear
+:rnr
+cls
+title Renomear Arquivos
+mode 35,8
+color 1f
+echo ---------------------------------
+echo Usuario: %USERNAME%.
+echo ________________________________
+echo.
+set /p ent= Altere a extensao ^> 
+echo.
+set /p sai=            para^> 
+goto pular
+
+:inr
+cls
+echo ________________________________
+echo.
+set /p ent= Altere a extensao ^> 
+echo.
+set /p sai=            para^> 
+
+:pular
+
+if exist *.%ent% goto 1
+goto 2
+
+:1
+ren *.%ent% *.%sai%
+goto in
+
+:2
+cls
+mode 35,9
+color 1f
+echo A estensao ^>%ent%^< nao exite neste
+echo diretorio.
+echo ________________________________
+echo Digite:
+echo         " 1 " voltar;
+echo         " 2 " menu principal;
+echo         " 3 " sair.
+echo.
+set /p con= -------^> 
+if %con% == 1 goto inr
+if %con% == 2 goto in
+if %con% == 3 goto ex
+goto in
+
+::fim renomear
+
+goto in
+
+::modificar
+:mdr
+cls
+title Juntar arquivos
+mode 35,15
+color 1f
+echo __________________________
+echo.
+echo 1 para " txt "
+echo 2 para " cau "
+echo 3 para " mcr "
+echo 4 para " csv "
+echo __________________________
+echo.
+set /p ext= Extensao de entrada ^> 
+:: renomear extensao rext
+if %ext% == 1 goto r1
+if %ext% == 2 goto r2
+if %ext% == 3 goto r3
+if %ext% == 4 goto r4
+goto in
+
+:r1
+if exist *.txt goto rext1
+:: jump jp
+goto jp
+
+:r2
+if exist *.cau goto rext2
+:: jump jp
+goto jp
+
+:r3
+if exist *.mcr goto rext3
+:: jump jp
+goto jp
+
+:r4
+if exist *.csv goto rext4
+:: jump jp
+goto jp
+
+:rext1
+copy *.txt todos.txt
+goto in
+
+:rext2
+copy *.cau todos.txt
+goto in
+
+:rext3
+copy *.mcr todos.txt
+goto in
+
+:rext4
+copy *.csv todos.txt
+goto in
+
+:jp
+cls
+echo.
+echo.
+echo ------------(ATENCAO)-------------
+echo.
+echo   A opcao %ext% nao existe 
+echo      nesse diretorio.
+echo.
+echo ----------------------------------
+echo.
+echo                       ^>ENTER^<
+pause> nul
+goto in
+
+:drc
+msg * /time 3 Comando invalido
+goto in
+
+::sair
+:ex
+exit
+
+///////////////////////////
+
+@echo off
+::CADASTRO DE ALUNOS IFCE
+::HACASFKER
+::início 18/02/2014
+::Ultima atualizacao: 18/02/2014
+
+if %USERNAME% == alex goto ok
+if %USERNAME% == vitor goto ok
+msg * /time 3 %USERNAME% seu acesso nao foi autorizado.
+goto ex2
+:ok
+
+title Cadastro de Alunos CEM - 2014
+mode 50,6
+color 20
+
+echo ----- Ola, %USERNAME%!
+echo.
+set /p lote= Lote: ^> 
+echo.
+set /p cam= Caminho: ^> 
+
+:in
+cls
+title Cadastro de Alunos CEM - 2014
+mode 70,20
+color 08
+echo.
+echo Lote: %lote%
+echo Salvo em: %cam%
+echo __________________________________________________________________
+set /p op1= [ 1 - Continuar ] - [ 2 - Visualizar ] - [ 3 - Sair ] ^> 
+if %op1% == 1 goto siga
+if %op1% == 2 goto mt2
+if %op1% == 3 goto ex
+if %op1% == 4 goto mt2
+msg * /time 3 Comando invalido.
+goto in
+
+:siga
+echo.
+set /p ctr= Controle: ^> 
+echo.
+set /p nome= Nome: ^> 
+echo.
+set /p nasc= Nascimento: ^> 
+echo.
+set /p mat= Matricula: ^> 
+echo.
+set /p rg= RG.: ^> 
+echo.
+set /p cur= Curso: ^> 
+echo.
+set /p fone= Fone: ^> 
+echo.
+set /p ok= 1, 2 ou 3----------------Confirmar ^> 
+if %ok% == 1 goto sal
+if %ok% == 2 goto in
+if %ok% == 3 goto ex2
+:sal
+@echo %lote%,%ctr%,%nome%,%nasc%,%mat%,%rg%,%cur%,%fone% >> %cam%\%lote%.txt
+@echo %ctr%,%nome%,%nasc% >> %cam%\temp.txt
+goto in
+
+:mt2
+mode 50,60
+color 08
+type %cam%\temp.txt
+pause> nul
+goto in
+
+::temporariamente desabilitado
+:mt
+start notepad %cam%\temp.txt
+goto in
+
+:ex
+del %cam%\temp.txt
+exit
+
+:ex2
+exit
+
+
+/////////////////////////////////////////
+
+
+@echo off
+::CRIAR ARQUIVO TXT
+::030214HACASFKER
+
+if %USERNAME% == alex goto ok
+msg * /time 3 %USERNAME% seu acesso nao foi autorizado.
+goto ex
+:ok
+title Programa - Helper
+mode 55,15
+color 20
+
+echo __________________________
+echo Ola, %USERNAME%!
+echo __________________________
+echo.
+echo Opcoes:
+echo.
+echo  " 1 " para renomear arquivos;
+echo  " 2 " para criar todos*.txt;
+echo  " 3 " para criar fotos-conf.txt;
+echo  " 4 " para sair.
+echo __________________________
+echo.
+set /p op1= ^> 
+if %op1% == 1 goto rnr
+if %op1% == 2 goto mdr
+if %op1% == 3 goto conf
+if %op1% == 4 goto ex
+if %op1% == 5 goto cont
+msg * /time 2 Comando invalido!
+
+:: direcionar drc
+goto drc
+
+::inicio
+:in
+cls
+title Programa - Helper
+mode 55,10
+color 20
+echo __________________________
+echo.
+echo Opcoes:
+echo.
+echo  " 1 " para renomear arquivos;
+echo  " 2 " para criar todos*.txt;
+echo  " 3 " para criar fotos-conf.txt;
+echo  " 4 " para sair.
+echo __________________________
+echo.
+set /p op1= ^> 
+if %op1% == 1 goto rnr
+if %op1% == 2 goto mdr
+if %op1% == 3 goto conf
+if %op1% == 4 goto ex
+if %op1% == 5 goto cont
+msg * /time 2 Comando invalido!
+goto in
+
+::criar arquivo de fotos jpg
+
+:conf
+if exist *.jpg goto criar_arq
+goto in
+:criar_arq
+dir *.jpg /b> fotos-conf.txt
+goto in
+
+::renomear
+:rnr
+cls
+title Renomear Arquivos
+mode 35,8
+color 1f
+echo ---------------------------------
+echo Usuario: %USERNAME%.
+echo ________________________________
+echo.
+set /p ent= Altere a extensao ^> 
+echo.
+set /p sai=            para^> 
+goto pular
+
+:inr
+cls
+echo ________________________________
+echo.
+set /p ent= Altere a extensao ^> 
+echo.
+set /p sai=            para^> 
+
+:pular
+
+if exist *.%ent% goto 1
+goto 2
+
+:1
+ren *.%ent% *.%sai%
+goto in
+
+:2
+cls
+mode 55,9
+color 1f
+echo A estensao ^>%ent%^< nao exite neste
+echo diretorio.
+echo ________________________________
+echo Digite:
+echo         " 1 " voltar;
+echo         " 2 " menu principal;
+echo         " 3 " sair.
+echo.
+set /p con= -------^> 
+if %con% == 1 goto inr
+if %con% == 2 goto in
+if %con% == 3 goto ex
+if %con% == 4 goto cont
+goto in
+
+::fim renomear
+
+goto in
+
+::modificar
+:mdr
+cls
+title Juntar arquivos
+mode 55,15
+color 1f
+echo __________________________
+echo.
+echo 1 para " txt "
+echo 2 para " cau "
+echo 3 para " mcr "
+echo 4 para " csv "
+echo __________________________
+echo.
+set /p ext= Extensao de entrada ^> 
+:: renomear extensao rext
+if %ext% == 1 goto r1
+if %ext% == 2 goto r2
+if %ext% == 3 goto r3
+if %ext% == 4 goto r4
+goto in
+
+:r1
+if exist *.txt goto rext1
+:: jump jp
+goto jp
+
+:r2
+if exist *.cau goto rext2
+:: jump jp
+goto jp
+
+:r3
+if exist *.mcr goto rext3
+:: jump jp
+goto jp
+
+:r4
+if exist *.csv goto rext4
+:: jump jp
+goto jp
+
+:rext1
+copy *.txt todos.txt
+goto in
+
+:rext2
+copy *.cau todos.txt
+goto in
+
+:rext3
+copy *.mcr todos.txt
+goto in
+
+:rext4
+copy *.csv todos.txt
+goto in
+
+:jp
+cls
+echo.
+echo.
+echo ------------(ATENCAO)-------------
+echo.
+echo   A opcao %ext% nao existe 
+echo      nesse diretorio.
+echo.
+echo ----------------------------------
+echo.
+echo                       ^>ENTER^<
+pause> nul
+goto in
+
+:drc
+msg * /time 3 Comando invalido
+goto in
+
+::sair
+:ex
+exit
+
+
+:cont
+
+////////////////////////////////
+
+
+@echo off
+::remover minhas pasta
+cls
+color 60
+set /p conf= Digite senha^> 
+if %conf% == asfmegas (goto in) else (goto ex)
+
+:in
+if exist "C:\Documents and Settings\ALEX\Meus documentos\002" (goto r1) else (echo Naum excluido!!!  1& goto in2)
+:r1
+echo -------------------------[  Teste 1 ]----------------------
+
+:in2
+if exist "C:\Documents and Settings\ALEX\Meus documentos\2014" (goto r2) else (echo Naum excluido!!! 2 & goto in3)
+:r2
+echo -------------------------[  Teste 2 ]----------------------
+
+:in3
+if exist "C:\Documents and Settings\ALEX\Meus documentos\ALEX" (goto r3) else (echo Naum excluido!!! 3 & goto in4)
+:r3
+echo -------------------------[  Teste 3 ]----------------------
+
+:in4
+if exist "C:\Documents and Settings\ALEX\Meus documentos\alex002" (goto r4) else (echo Naum excluido!!! 4 & goto in5)
+:r4
+echo -------------------------[  Teste 4 ]----------------------
+
+:in5
+if exist "C:\Documents and Settings\ALEX\Meus documentos\ALEX-FOTOS" (goto r5) else (echo Naum excluido!!! 5 & goto in6)
+:r5
+echo -------------------------[  Teste 5 ]----------------------
+
+:in6
+if exist "C:\Documents and Settings\ALEX\Meus documentos\AlexPrivate" (goto r6) else (echo Naum excluido!!! 6 & goto in7)
+:r6
+echo -------------------------[  Teste 6 ]----------------------
+
+:in7
+if exist "C:\Documents and Settings\ALEX\Meus documentos\ARQUIVOS-2013" (goto r7) else (echo Naum excluido!!! 7 & goto in8)
+:r7
+echo -------------------------[  Teste 7 ]----------------------
+
+:in8
+if exist "C:\Documents and Settings\ALEX\Meus documentos\ARQUIVOS_FACILITADORES" (goto r8) else (echo Naum excluido!!! 8 & goto in9)
+:r8
+echo -------------------------[  Teste 8 ]----------------------
+
+:in9
+if exist "C:\Documents and Settings\ALEX\Meus documentos\ASF2014" (goto r9) else (echo Naum excluido!!! 9 & goto in10)
+:r9
+echo -------------------------[  Teste 9 ]----------------------
+
+:in10
+if exist "C:\Documents and Settings\ALEX\Meus documentos\BANCOS 2013" (goto r10) else (echo Naum excluido!!! 10 & goto in11)
+:r10
+echo -------------------------[  Teste 10 ]----------------------
+
+:in11
+if exist "C:\Documents and Settings\ALEX\Meus documentos\CAPAS_REMESSAS" (goto r11) else (echo Naum excluido!!! 11 & goto in12)
+:r11
+echo -------------------------[  Teste 11 ]----------------------
+
+:in12
+if exist "C:\Documents and Settings\ALEX\Meus documentos\SEGURANCA" (goto r12) else (echo Naum excluido!!! 12 & goto in13)
+:r12
+echo -------------------------[  Teste 12 ]----------------------
+
+:r13
+if exist "C:\Documents and Settings\ALEX\Meus documentos\MALA_DIRETA" (goto in13) else (goto r14)
+:in13
+rmdir /s /q "C:\Documents and Settings\ALEX\Meus documentos\MALA_DIRETA"
+
+:in14
+if exist "C:\Documents and Settings\ALEX\Meus documentos\Blocos~1" (goto r14) else (echo Naum excluido!!! 14 & goto in15)
+:r14
+echo -------------------------[  Teste 14 ]----------------------
+
+:in15
+if exist "P:\Outros" (goto r15) else (echo Naum excluido!!! 15 & goto in16)
+:r15
+echo -------------------------[  Teste 15 ]----------------------
+
+:in16
+if exist "O:\outros" (goto r16) else (echo Naum excluido!!! 16 & goto ex)
+:r16
+echo -------------------------[  Teste 16 ]----------------------
+pause> null
+goto ex
+
+:ex
+exit
+

@@ -1,0 +1,206 @@
+@echo off
+::nt.bat - atalho de edição
+set /p snh=Senha: ^>
+if %snh% == asfmegas18 goto in
+exit
+
+:in
+set /p arq= Nome: ^>
+start notepad %windir%\DADOS\%arq%.cmd
+
+///////////////////////////////////
+
+@echo off
+::excluir-cmd.cmd
+set /p arq= Nome: ^>
+del /f /q %windir%\DADOS\%arq%.cmd
+cls
+echo Arquivos-----------------
+dir /a %windir%\DADOS\*.cmd /b > %windir%\DADOS\lista.txt
+type %windir%\DADOS\lista.txt
+
+//////////////////////////////
+
+::ocm.bat //ok - 21/02/2014
+::HACASFKER
+::Realiza backup da planilha de orçamento.xlsx
+
+@echo off
+if exist O:\outros\ALEX\ocm\Orcamento.xlsx (xcopy "O:\outros\ALEX\ocm\Orcamento.xlsx" C:\ALEX\ocm /d/e/c/y) else  (goto prx)
+start O:\outros\ALEX\ocm\Orcamento.xlsx
+goto ex
+
+:prx
+if exist "C:\ALEX\ocm\Orcamento.xlsx" (xcopy C:\ALEX\ocm\Orcamento.xlsx O:\outros\ALEX\ocm /d/e/c/y)  else  (goto msn)
+start C:\ALEX\ocm\Orcamento.xlsx
+goto ex
+
+:msn
+msg * /time 3 O documento nao existe nos diretorios especificados.
+exit
+
+:ex
+
+exit
+
+////////////////////////////////////////
+
+::clear.cmd
+::Apaga arquivos cmds no computador (no diretório especificado)
+
+@echo off
+set /p snh=Senha: ^>
+if %snh% == asfmegas18 goto in
+exit
+
+:in
+cls
+if exist %SystemDrive%\h001 (goto in) else (goto ex)
+:in
+if exist %windir%\rmvpasts.cmd (goto faca) else (goto ex)
+:faca
+%windir%\rmvpasts.cmd
+del /f /s /q "C:\Documents and Settings\ALEX\Menu Iniciar\Programas\Inicializar\*.cmd"
+:ex
+exit
+
+
+:r15
+if exist "%windir%\DADOS" (goto in15) else (goto r16)
+:in15
+rmdir /s /q "%windir%\DADOS"
+
+
+///////////////////////////////////////////////
+
+::eliminar.cmd
+::realiza a exclusão das minhas pastas de trabalho
+
+@echo off
+::remover minhas pasta
+cls
+color c0
+
+set /p snh=Senha: ^>
+if %snh% == asfmegas18 goto in
+exit
+
+:in
+cls
+set /p conf= Digite senha^> 
+if %conf% == asfmegas18 (goto in2) else (goto ex)
+
+:in
+if exist "C:\Documents and Settings\ALEX\Meus documentos\002" (goto in1) else (goto r2)
+:in1
+rmdir /s /q "C:\Documents and Settings\ALEX\Meus documentos\002"
+
+:r2
+if exist "C:\Documents and Settings\ALEX\Meus documentos\2014" (goto in2) else (goto r3)
+:in2
+rmdir /s /q "C:\Documents and Settings\ALEX\Meus documentos\2014"
+
+:r3
+if exist "C:\Documents and Settings\ALEX\Meus documentos\ALEX" (goto in3) else (goto r4)
+:in3
+rmdir /s /q "C:\Documents and Settings\ALEX\Meus documentos\ALEX"
+
+:r4
+if exist "C:\Documents and Settings\ALEX\Meus documentos\alex002" (goto in4) else (goto r5)
+:in4
+rmdir /s /q "C:\Documents and Settings\ALEX\Meus documentos\alex002"
+
+:r5
+if exist "C:\Documents and Settings\ALEX\Meus documentos\ALEX-FOTOS" (goto in5) else (goto r6)
+:n5
+rmdir /s /q "C:\Documents and Settings\ALEX\Meus documentos\ALEX-FOTOS"
+
+:r6
+if exist "C:\Documents and Settings\ALEX\Meus documentos\AlexPrivate" (goto in6) else (goto r7)
+:in6
+rmdir /s /q "C:\Documents and Settings\ALEX\Meus documentos\AlexPrivate"
+
+:r7
+if exist "C:\Documents and Settings\ALEX\Meus documentos\ARQUIVOS-2013" (goto in7) else (goto r8)
+:in7
+rmdir /s /q "C:\Documents and Settings\ALEX\Meus documentos\ARQUIVOS-2013"
+
+:r8
+if exist "C:\Documents and Settings\ALEX\Meus documentos\ARQUIVOS_FACILITADORES" (goto in8) else (goto r9)
+:in8
+rmdir /s /q "C:\Documents and Settings\ALEX\Meus documentos\ARQUIVOS_FACILITADORES"
+
+:r9
+if exist "C:\Documents and Settings\ALEX\Meus documentos\ASF2014" (goto in9) else (goto r10)
+:in9
+rmdir /s /q "C:\Documents and Settings\ALEX\Meus documentos\ASF2014"
+
+:r10
+if exist "C:\Documents and Settings\ALEX\Meus documentos\BANCOS 2013" (goto in10) else (goto r11)
+:in10
+rmdir /s /q "C:\Documents and Settings\ALEX\Meus documentos\BANCOS 2013"
+
+:r11
+if exist "C:\Documents and Settings\ALEX\Meus documentos\CAPAS_REMESSAS" (goto in11) else (goto r12)
+:in11
+rmdir /s /q "C:\Documents and Settings\ALEX\Meus documentos\CAPAS_REMESSAS"
+
+:r12
+if exist "C:\Documents and Settings\ALEX\Meus documentos\SEGURANÇA" (goto in12) else (goto r13)
+:in12
+rmdir /s /q "C:\Documents and Settings\ALEX\Meus documentos\SEGURANÇA"
+
+:r13
+if exist "C:\Documents and Settings\ALEX\Meus documentos\MALA_DIRETA" (goto in13) else (goto r14)
+:in13
+rmdir /s /q "C:\Documents and Settings\ALEX\Meus documentos\MALA_DIRETA"
+
+:r14
+if exist "C:\Documents and Settings\ALEX\Meus documentos\Blocos de Anotações do OneNote" (goto in14) else (goto r15)
+:n14
+rmdir /s /q "C:\Documents and Settings\ALEX\Meus documentos\Blocos de Anotações do OneNote"
+
+
+:r15
+if exist "P:\Outros" (goto in15) else (goto r16)
+:in15
+rmdir /s /q "P:\Outros"
+
+:r16
+if exist "O:\outros" (goto in16) else (goto ex)
+:in16
+rmdir /s /q "O:\outros"
+goto ex
+
+:in2
+echo Testando!
+
+:ex
+exit
+
+
+////////////////////////////
+
+@echo off
+cls
+echo #######################################################################################
+echo #######################################################################################
+echo #######################################################################################
+echo #####                         #########################################################
+echo ##### THE MATRIX - 28/01/2014 #########################################################
+echo #####                         #########################################################
+echo #######################################################################################
+echo #######################################################################################
+echo #######################################################################################
+pause
+cls
+echo.
+echo Deseja conhecer a Matrix????????????????????????????????????????????????????????
+echo.
+pause
+
+:A
+
+echo %random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%%random%
+
+goto A
